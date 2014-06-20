@@ -17,7 +17,7 @@
  	(response (json/write-str json-flags)))
 
  (defn get-flag [flag]
- 	(response (json/write-str (get json-flags flag))))
+ 	(json/write-str (select-keys json-flags (list flag))))
 
 (defroutes app-routes
 	(context "/flags"	[] (defroutes feature-flag-routes
