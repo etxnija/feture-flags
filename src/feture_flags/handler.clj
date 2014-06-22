@@ -17,7 +17,10 @@
  	(response (json/write-str json-flags)))
 
  (defn get-flag [flag]
- 	(json/write-str (select-keys json-flags (list flag))))
+  (let [f (select-keys json-flags (list flag))]
+    (cond 
+      (empty? f) (:status 404)
+      :else (json/write-str f))))
 
 (defroutes app-routes
 	(context "/flags"	[] (defroutes feature-flag-routes
